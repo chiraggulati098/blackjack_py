@@ -27,4 +27,34 @@ class Player():
     def __init__(self,name,chips = 100):
         
         self.name = name
-        self.chips = chips
+        self.chips_total = chips
+        self.bet = 0
+        self.hand = []
+        self.value = 0
+        self.aces = 0
+
+    def add_card(self,card):
+        self.hand.append(card)
+        self.value += values[card]
+        if card == 'Ace':
+            self.aces += 1
+
+    def adjust_for_ace(self):
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+    def win_bet(self):
+        self.chips_total += self.bet
+
+    def lose_bet(self):
+        self.chips_total -= self.bet
+
+def take_bet(player):
+    while True:
+        try:
+            player.bet = int(input("How many chips would you like to bet? "))
+        except:
+            print("Please provide an Integer Value!")
+        else:
+            pass
